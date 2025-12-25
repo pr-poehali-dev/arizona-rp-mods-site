@@ -1,4 +1,6 @@
 {
+  "sync-storage-to-db": "https://functions.poehali.dev/b57a7a18-7423-49e7-83f3-aa32e0e94de7",
+  "storage": "https://functions.poehali.dev/a83e6b84-4496-4bd3-995d-54724c68f373",
   "auth": "https://functions.poehali.dev/4b76599a-8805-4bf6-9c07-3a1e90368c21",
   "mods": "https://functions.poehali.dev/4f0b5f4d-7372-42de-926f-e277f97e30b0"
 }

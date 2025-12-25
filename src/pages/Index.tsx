@@ -1,8 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [mods, setMods] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === 'mods') {
+      loadMods();
+    }
+  }, [activeTab]);
+
+  const loadMods = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('https://functions.poehali.dev/4f0b5f4d-7372-42de-926f-e277f97e30b0');
+      const data = await response.json();
+      setMods(data.mods || []);
+    } catch (error) {
+      console.error('Failed to load mods:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const syncStorageToDb = async () => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/b57a7a18-7423-49e7-83f3-aa32e0e94de7', {
+        method: 'POST'
+      });
+      const data = await response.json();
+      alert(data.message || 'Синхронизация завершена!');
+      loadMods();
+    } catch (error) {
+      console.error('Failed to sync storage:', error);
+      alert('Ошибка синхронизации');
+    }
+  };
 
   const mockForumTopics = [
     {
@@ -552,14 +587,33 @@ const Index = () => {
             />
           </div>
         </div>
+        <button 
+          onClick={syncStorageToDb}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all flex items-center space-x-2"
+        >
+          <Icon name="RefreshCw" size={20} />
+          <span>Синхронизация</span>
+        </button>
         <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all flex items-center space-x-2">
           <Icon name="Filter" size={20} />
           <span>Фильтры</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockMods.map((mod) => (
+      {loading ? (
+        <div className="text-center py-12">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-400"></div>
+          <p className="text-purple-200 mt-4">Загрузка модов...</p>
+        </div>
+      ) : mods.length === 0 ? (
+        <div className="text-center py-12">
+          <Icon name="Package" size={64} className="text-purple-400 mx-auto mb-4" />
+          <p className="text-purple-200 text-lg">Моды не найдены</p>
+          <p className="text-purple-300 text-sm mt-2">Нажмите "Синхронизация" чтобы загрузить файлы из хранилища</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mods.map((mod) => (
           <div
             key={mod.id}
             className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:border-purple-400 transition-all hover:shadow-xl hover:shadow-purple-500/20 overflow-hidden"
@@ -595,21 +649,29 @@ const Index = () => {
                 <span className="text-xs bg-indigo-500/30 text-indigo-200 px-3 py-1 rounded">
                   {mod.category}
                 </span>
-                <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2">
+                <a 
+                  href={mod.fileUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2"
+                >
                   <Icon name="Download" size={16} />
                   <span>Скачать</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
-      <div className="mt-12 text-center">
-        <button className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-lg font-medium transition-all border border-white/20">
-          Загрузить ещё
-        </button>
-      </div>
+      {!loading && mods.length > 0 && (
+        <div className="mt-12 text-center">
+          <button className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-lg font-medium transition-all border border-white/20">
+            Загрузить ещё
+          </button>
+        </div>
+      )}
     </>
   );
 
