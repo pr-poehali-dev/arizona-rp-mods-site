@@ -9,10 +9,10 @@ interface AuthModalProps {
 const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    username: '',
+    nickname: '',
+    login: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
 
   if (!isOpen) return null;
@@ -49,7 +49,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
             {!isLogin && (
               <div>
                 <label className="block text-purple-200 text-sm font-medium mb-2">
-                  Имя пользователя
+                  Ник
                 </label>
                 <div className="relative">
                   <Icon
@@ -59,11 +59,11 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   />
                   <input
                     type="text"
-                    name="username"
-                    value={formData.username}
+                    name="nickname"
+                    value={formData.nickname}
                     onChange={handleChange}
                     className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20"
-                    placeholder="Введите имя пользователя"
+                    placeholder="Введите ник"
                     required
                   />
                 </div>
@@ -72,25 +72,49 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
             <div>
               <label className="block text-purple-200 text-sm font-medium mb-2">
-                Email
+                Логин
               </label>
               <div className="relative">
                 <Icon
-                  name="Mail"
+                  name="UserCircle"
                   size={20}
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-300"
                 />
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  name="login"
+                  value={formData.login}
                   onChange={handleChange}
                   className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20"
-                  placeholder="Введите email"
+                  placeholder="Введите логин"
                   required
                 />
               </div>
             </div>
+
+            {!isLogin && (
+              <div>
+                <label className="block text-purple-200 text-sm font-medium mb-2">
+                  Почта
+                </label>
+                <div className="relative">
+                  <Icon
+                    name="Mail"
+                    size={20}
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-300"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20"
+                    placeholder="Введите почту"
+                    required
+                  />
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block text-purple-200 text-sm font-medium mb-2">
@@ -113,30 +137,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 />
               </div>
             </div>
-
-            {!isLogin && (
-              <div>
-                <label className="block text-purple-200 text-sm font-medium mb-2">
-                  Подтвердите пароль
-                </label>
-                <div className="relative">
-                  <Icon
-                    name="Lock"
-                    size={20}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-300"
-                  />
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20"
-                    placeholder="Повторите пароль"
-                    required
-                  />
-                </div>
-              </div>
-            )}
 
             <button
               type="submit"
