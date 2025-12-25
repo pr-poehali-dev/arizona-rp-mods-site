@@ -4,6 +4,45 @@ import Icon from '@/components/ui/icon';
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
 
+  const mockBuilds = [
+    {
+      id: 1,
+      name: 'Сборка для RP',
+      author: 'BuildMaster',
+      version: '3.2',
+      modsCount: 15,
+      downloads: 4523,
+      description: 'Полный набор модов для комфортной РП игры'
+    },
+    {
+      id: 2,
+      name: 'Графическая сборка',
+      author: 'GraphicsGuru',
+      version: '2.8',
+      modsCount: 8,
+      downloads: 3210,
+      description: 'Улучшение графики и визуальных эффектов'
+    },
+    {
+      id: 3,
+      name: 'Реалистичная сборка',
+      author: 'RealismPro',
+      version: '1.9',
+      modsCount: 12,
+      downloads: 2845,
+      description: 'Максимальная реалистичность игрового процесса'
+    },
+    {
+      id: 4,
+      name: 'Оптимизация',
+      author: 'PerformanceKing',
+      version: '2.1',
+      modsCount: 6,
+      downloads: 5632,
+      description: 'Повышение FPS и производительности'
+    }
+  ];
+
   const mockMods = [
     {
       id: 1,
@@ -121,6 +160,186 @@ const Index = () => {
           <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-bold hover:bg-purple-50 transition-all hover:shadow-lg">
             Начать
           </button>
+        </div>
+      </div>
+    </>
+  );
+
+  const renderBuilds = () => (
+    <>
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-white mb-4">
+          Сборки модов
+        </h1>
+        <p className="text-xl text-purple-200">
+          Готовые наборы модов для разных стилей игры
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {mockBuilds.map((build) => (
+          <div
+            key={build.id}
+            className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:border-purple-400 transition-all hover:shadow-xl hover:shadow-purple-500/20 overflow-hidden"
+          >
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 h-40 flex items-center justify-center">
+              <Icon name="Layers" size={64} className="text-white/80" />
+            </div>
+            
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-2xl font-bold text-white">{build.name}</h3>
+                <span className="bg-purple-500/30 text-purple-200 text-xs px-2 py-1 rounded">
+                  v{build.version}
+                </span>
+              </div>
+              
+              <p className="text-purple-200 mb-4">
+                {build.description}
+              </p>
+              
+              <div className="flex items-center justify-between text-sm text-purple-300 mb-4">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <Icon name="User" size={16} />
+                    <span>{build.author}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Icon name="Package" size={16} />
+                    <span>{build.modsCount} модов</span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Icon name="Download" size={16} />
+                  <span>{build.downloads}</span>
+                </div>
+              </div>
+              
+              <button className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all flex items-center justify-center space-x-2">
+                <Icon name="Download" size={20} />
+                <span>Скачать сборку</span>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+
+  const renderSupport = () => (
+    <>
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-white mb-4">
+          Поддержка
+        </h1>
+        <p className="text-xl text-purple-200">
+          Нужна помощь? Мы всегда на связи!
+        </p>
+      </div>
+
+      <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 hover:border-purple-400 transition-all">
+            <div className="flex justify-center mb-4">
+              <div className="bg-purple-600 p-4 rounded-full">
+                <Icon name="MessageCircle" size={32} className="text-white" />
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-white text-center mb-3">
+              Онлайн чат
+            </h3>
+            <p className="text-purple-200 text-center mb-4">
+              Быстрые ответы на ваши вопросы в режиме реального времени
+            </p>
+            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all">
+              Открыть чат
+            </button>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 hover:border-purple-400 transition-all">
+            <div className="flex justify-center mb-4">
+              <div className="bg-indigo-600 p-4 rounded-full">
+                <Icon name="Mail" size={32} className="text-white" />
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-white text-center mb-3">
+              Email поддержка
+            </h3>
+            <p className="text-purple-200 text-center mb-4">
+              Отправьте нам письмо и получите ответ в течение 24 часов
+            </p>
+            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all">
+              Написать письмо
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+          <h3 className="text-2xl font-bold text-white mb-6 flex items-center space-x-2">
+            <Icon name="HelpCircle" size={28} className="text-purple-400" />
+            <span>Часто задаваемые вопросы</span>
+          </h3>
+          
+          <div className="space-y-4">
+            <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2 flex items-center space-x-2">
+                <Icon name="ChevronRight" size={20} className="text-purple-400" />
+                <span>Как установить моды?</span>
+              </h4>
+              <p className="text-purple-200 text-sm pl-7">
+                Скачайте мод, распакуйте архив и поместите файлы в папку с игрой согласно инструкции.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2 flex items-center space-x-2">
+                <Icon name="ChevronRight" size={20} className="text-purple-400" />
+                <span>Безопасны ли моды с сайта?</span>
+              </h4>
+              <p className="text-purple-200 text-sm pl-7">
+                Да, все моды проходят проверку модераторами перед публикацией.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2 flex items-center space-x-2">
+                <Icon name="ChevronRight" size={20} className="text-purple-400" />
+                <span>Как загрузить свой мод?</span>
+              </h4>
+              <p className="text-purple-200 text-sm pl-7">
+                Зарегистрируйтесь на сайте и используйте функцию "Загрузить мод" в личном кабинете.
+              </p>
+            </div>
+
+            <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2 flex items-center space-x-2">
+                <Icon name="ChevronRight" size={20} className="text-purple-400" />
+                <span>Что делать если мод не работает?</span>
+              </h4>
+              <p className="text-purple-200 text-sm pl-7">
+                Проверьте версию игры и совместимость мода. Обратитесь в поддержку с описанием проблемы.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+            <h4 className="text-xl font-bold text-white mb-4">
+              Социальные сети
+            </h4>
+            <div className="flex justify-center space-x-4">
+              <button className="bg-purple-600 hover:bg-purple-700 p-3 rounded-lg transition-all">
+                <Icon name="MessageCircle" size={24} className="text-white" />
+              </button>
+              <button className="bg-indigo-600 hover:bg-indigo-700 p-3 rounded-lg transition-all">
+                <Icon name="Send" size={24} className="text-white" />
+              </button>
+              <button className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg transition-all">
+                <Icon name="Share2" size={24} className="text-white" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
@@ -247,6 +466,34 @@ const Index = () => {
                   <span>Моды</span>
                 </div>
               </button>
+              
+              <button
+                onClick={() => setActiveTab('builds')}
+                className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                  activeTab === 'builds'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <div className="flex items-center space-x-2">
+                  <Icon name="Layers" size={20} />
+                  <span>Сборки</span>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => setActiveTab('support')}
+                className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                  activeTab === 'support'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <div className="flex items-center space-x-2">
+                  <Icon name="HeadphonesIcon" size={20} />
+                  <span>Поддержка</span>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -255,6 +502,8 @@ const Index = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {activeTab === 'home' && renderHome()}
         {activeTab === 'mods' && renderMods()}
+        {activeTab === 'builds' && renderBuilds()}
+        {activeTab === 'support' && renderSupport()}
       </main>
 
       <footer className="bg-black/30 backdrop-blur-sm border-t border-white/10 mt-20">
