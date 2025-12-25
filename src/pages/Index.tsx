@@ -4,6 +4,69 @@ import Icon from '@/components/ui/icon';
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
 
+  const mockForumTopics = [
+    {
+      id: 1,
+      title: 'Как установить моды правильно?',
+      author: 'Новичок123',
+      category: 'Помощь',
+      replies: 15,
+      views: 234,
+      lastReply: '5 минут назад',
+      isPinned: true
+    },
+    {
+      id: 2,
+      title: 'Лучшие моды для улучшения графики',
+      author: 'GraphicsPro',
+      category: 'Обсуждения',
+      replies: 42,
+      views: 1203,
+      lastReply: '1 час назад',
+      isPinned: false
+    },
+    {
+      id: 3,
+      title: 'Проблема с запуском игры после установки мода',
+      author: 'HelpMe',
+      category: 'Технические проблемы',
+      replies: 8,
+      views: 156,
+      lastReply: '3 часа назад',
+      isPinned: false
+    },
+    {
+      id: 4,
+      title: 'Делюсь своей сборкой модов',
+      author: 'ModMaster',
+      category: 'Сборки',
+      replies: 67,
+      views: 2341,
+      lastReply: '10 минут назад',
+      isPinned: false
+    },
+    {
+      id: 5,
+      title: 'Идеи для новых модов',
+      author: 'Creator2024',
+      category: 'Идеи',
+      replies: 23,
+      views: 678,
+      lastReply: '2 часа назад',
+      isPinned: false
+    },
+    {
+      id: 6,
+      title: 'Правила форума - прочитать обязательно!',
+      author: 'Администратор',
+      category: 'Объявления',
+      replies: 5,
+      views: 3421,
+      lastReply: '1 день назад',
+      isPinned: true
+    }
+  ];
+
   const mockBuilds = [
     {
       id: 1,
@@ -345,6 +408,128 @@ const Index = () => {
     </>
   );
 
+  const renderForum = () => (
+    <>
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-white mb-4">
+          Форум сообщества
+        </h1>
+        <p className="text-xl text-purple-200">
+          Обсуждай моды, делись опытом и получай помощь
+        </p>
+      </div>
+
+      <div className="mb-8 flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all flex items-center space-x-2">
+            <Icon name="Plus" size={20} />
+            <span>Создать тему</span>
+          </button>
+          <button className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg font-medium transition-all border border-white/20">
+            Правила форума
+          </button>
+        </div>
+        <div className="flex items-center space-x-2 text-purple-200">
+          <Icon name="Users" size={20} />
+          <span>Онлайн: 142</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <button className="bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg px-4 py-3 text-white font-medium transition-all">
+          Все темы
+        </button>
+        <button className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-purple-300 font-medium transition-all">
+          Помощь
+        </button>
+        <button className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-purple-300 font-medium transition-all">
+          Обсуждения
+        </button>
+        <button className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-purple-300 font-medium transition-all">
+          Идеи
+        </button>
+      </div>
+
+      <div className="space-y-3">
+        {mockForumTopics.map((topic) => (
+          <div
+            key={topic.id}
+            className={`bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:border-purple-400 transition-all hover:shadow-lg hover:shadow-purple-500/10 p-6 ${
+              topic.isPinned ? 'border-yellow-500/30 bg-yellow-500/5' : ''
+            }`}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-2">
+                  {topic.isPinned && (
+                    <Icon name="Pin" size={18} className="text-yellow-400" />
+                  )}
+                  <h3 className="text-xl font-bold text-white hover:text-purple-300 cursor-pointer transition-colors">
+                    {topic.title}
+                  </h3>
+                </div>
+                
+                <div className="flex items-center space-x-4 text-sm text-purple-300 mb-3">
+                  <div className="flex items-center space-x-1">
+                    <Icon name="User" size={16} />
+                    <span>{topic.author}</span>
+                  </div>
+                  <span className="bg-indigo-500/20 text-indigo-200 px-3 py-1 rounded text-xs">
+                    {topic.category}
+                  </span>
+                  <div className="flex items-center space-x-1">
+                    <Icon name="Clock" size={16} />
+                    <span>{topic.lastReply}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-6 text-purple-200 ml-6">
+                <div className="text-center">
+                  <div className="flex items-center space-x-1">
+                    <Icon name="MessageSquare" size={18} />
+                    <span className="font-bold text-white">{topic.replies}</span>
+                  </div>
+                  <span className="text-xs text-purple-300">ответов</span>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center space-x-1">
+                    <Icon name="Eye" size={18} />
+                    <span className="font-bold text-white">{topic.views}</span>
+                  </div>
+                  <span className="text-xs text-purple-300">просмотров</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center justify-between">
+        <div className="text-purple-200 text-sm">
+          Показано тем: {mockForumTopics.length} из 156
+        </div>
+        <div className="flex space-x-2">
+          <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg text-white transition-all">
+            Предыдущая
+          </button>
+          <button className="bg-purple-600 px-4 py-2 rounded-lg text-white font-medium">
+            1
+          </button>
+          <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg text-white transition-all">
+            2
+          </button>
+          <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg text-white transition-all">
+            3
+          </button>
+          <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg text-white transition-all">
+            Следующая
+          </button>
+        </div>
+      </div>
+    </>
+  );
+
   const renderMods = () => (
     <>
       <div className="text-center mb-12">
@@ -482,6 +667,20 @@ const Index = () => {
               </button>
               
               <button
+                onClick={() => setActiveTab('forum')}
+                className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                  activeTab === 'forum'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <div className="flex items-center space-x-2">
+                  <Icon name="MessageSquare" size={20} />
+                  <span>Форум</span>
+                </div>
+              </button>
+              
+              <button
                 onClick={() => setActiveTab('support')}
                 className={`px-6 py-2 rounded-lg font-medium transition-all ${
                   activeTab === 'support'
@@ -503,6 +702,7 @@ const Index = () => {
         {activeTab === 'home' && renderHome()}
         {activeTab === 'mods' && renderMods()}
         {activeTab === 'builds' && renderBuilds()}
+        {activeTab === 'forum' && renderForum()}
         {activeTab === 'support' && renderSupport()}
       </main>
 
